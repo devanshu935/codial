@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 
 module.exports.home = function(req, res){
     // Post.find({}).then((posts) => {
@@ -16,13 +17,15 @@ module.exports.home = function(req, res){
             path: 'user'
         } 
     })
-    .then(posts => {
+    .then((posts) => {
+      User.find({}).then((users) => {
         res.render('home', {
           title: "Codial | Home",
-          posts: posts 
+          posts: posts,
+          all_users: users 
         });
-      })
-    .catch(err => {
+    });
+  }).catch(err => {
     // Handle any errors here
     console.error(err);
     });
